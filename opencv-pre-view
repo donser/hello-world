@@ -1,0 +1,30 @@
+#include<fstream>
+#include<iostream>
+#include<iostream> 
+#include<highgui.h>
+#include<opencv2/opencv.hpp>
+#include<opencv2\core\core.hpp>
+#include<opencv2/core/core.hpp> 
+#include<opencv2\highgui\highgui.hpp>
+#include<opencv2/highgui/highgui.hpp>  
+#include<opencv2/imgproc/imgproc.hpp> 
+#include<opencv2/imgproc/imgproc.hpp>
+#include<opencv2/objdetect/objdetect.hpp>
+using namespace std;
+using namespace cv;
+int main()
+{
+    VideoCapture video(0);
+    Mat frame, mask, thresholdImage, output;
+    BackgroundSubtractorMOG2 bgSubtractor(20, 16, true);
+    namedWindow("background");
+    while (true){
+        video >> frame;
+        bgSubtractor(frame, mask, 0.001);
+        imshow("background", mask);
+        char c = (char)waitKey(20);
+        if (c == 27)
+            break;
+    }
+    return 0;
+}
